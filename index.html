@@ -1,0 +1,554 @@
+﻿<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terabox - Οδηγίες Λήψης</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        body.light {
+            background: #f5f5f5;
+            color: #1a1a1a;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e50914;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            color: #e50914;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .step {
+            background: #141414;
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            border: 1px solid #222;
+            transition: transform 0.2s ease;
+        }
+        
+        body.light .step {
+            background: #ffffff;
+            border-color: #ddd;
+        }
+        
+        .step:hover {
+            transform: translateX(8px);
+            border-color: #e50914;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .step-number {
+            background: #e50914;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .step-content {
+            margin-left: 51px;
+            opacity: 0.85;
+            line-height: 1.5;
+        }
+        
+        /* Premium info box - τώρα στο τέλος, πιο διακριτικό */
+        .premium-box {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%);
+            border: 1px solid #ffc107;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+            position: relative;
+        }
+        
+        .premium-box h3 {
+            color: #ffc107;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .premium-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .premium-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            padding: 8px 12px;
+            background: rgba(255, 193, 7, 0.1);
+            border-radius: 10px;
+        }
+        
+        .premium-feature span:first-child {
+            font-size: 18px;
+        }
+        
+        .comparison-table {
+            margin-top: 15px;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.light .comparison-table th,
+        body.light .comparison-table td {
+            border-bottom-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .comparison-table th {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        .tips {
+            background: rgba(229, 9, 20, 0.1);
+            border-left: 4px solid #e50914;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 24px 0;
+        }
+        
+        body.light .tips {
+            background: rgba(229, 9, 20, 0.05);
+        }
+        
+        .tips h3 {
+            margin-bottom: 12px;
+            color: #e50914;
+        }
+        
+        .tips ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: transform 0.1s ease;
+        }
+        
+        .btn:active {
+            transform: scale(0.96);
+        }
+        
+        .btn-primary {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #27ae60;
+        }
+        
+        .btn-secondary {
+            background: #555;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #444;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #e50914;
+            color: #e50914;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(229, 9, 20, 0.1);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 100;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            font-size: 11px;
+            opacity: 0.5;
+        }
+        
+        body.light .footer {
+            border-color: #ddd;
+        }
+        
+        @media (max-width: 600px) {
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .step-content {
+                margin-left: 0;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+            .premium-features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Αλλαγή θέματος</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span>☁️</span>
+                Οδηγίες Λήψης από Terabox
+                <span>📥</span>
+            </h1>
+            <p style="margin-top: 10px; opacity: 0.7;">Ακολουθήστε τα βήματα για επιτυχημένη λήψη</p>
+        </div>
+
+        <!-- 🎬 Μόνιμη Αποθήκευση - Videotheque (ΔΩΡΕΑΝ) -->
+        <div class="tips" style="border-left-color: #2ecc71; margin-bottom: 24px;">
+            <h3>🎬 Η Δική σου Δωρεάν Ταινιοθήκη για Πάντα!</h3>
+            <ul>
+                <li>✅ <strong>Κάθε έργο που αποθηκεύεις μέσω αυτής της σελίδας, πάει ΑΠΕΥΘΕΙΑΣ στον προσωπικό σου λογαριασμό Terabox.</strong></li>
+                <li>📀 <strong>Οι ταινίες και οι σειρές σου μένουν εκεί ΓΙΑ ΠΑΝΤΑ</strong> – όσο δεν τις διαγράφεις εσύ ο ίδιος.</li>
+                <li>🎥 <strong>Δημιούργησε τη δική σου videotheque / ταινιοθήκη</strong> με ό,τι θες να βλέπεις όποτε θες, χωρίς λήξη ή εξαφάνιση.</li>
+                <li>☁️ <strong>Δεν χρειάζεται να κατεβάζεις τίποτα</strong> – τα βλέπεις online (streaming) ή κατεβάζεις όποτε θέλεις.</li>
+                <li>💾 <strong>1TB δωρεάν χώρος</strong> – φτάνει για εκατοντάδες ταινίες και σειρές!</li>
+                <li>🔁 <strong>Από οποιαδήποτε συσκευή:</strong> κινητό, τάμπλετ, υπολογιστή – μπαίνεις και βλέπεις τη συλλογή σου.</li>
+            </ul>
+            <p style="margin-top: 12px; font-size: 13px; background: rgba(46, 204, 113, 0.15); padding: 10px; border-radius: 12px;">
+                ⚡ <strong>Σημαντικό:</strong> Όταν πατάς "Save to Terabox" ή "Αποθήκευση", το αρχείο μπαίνει μόνιμα στη βιβλιοθήκη σου. 
+                Ακόμα κι αν ο αρχικός σύνδεσμος που είδες κάποτε χαθεί, ΕΣΥ θα το έχεις πάντα διαθέσιμο στον λογαριασμό σου!
+            </p>
+        </div>
+        
+        <!-- ΒΗΜΑΤΑ ΛΗΨΗΣ (ΔΩΡΕΑΝ) -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">Πατήστε το κουμπί "ΛΗΨΗ"</div>
+            </div>
+            <div class="step-content">
+                Θα ανοίξει μια νέα καρτέλα με τον σύνδεσμο του Terabox όπου βρίσκεται το αρχείο.
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">Αποθήκευση στο Terabox Drive</div>
+            </div>
+            <div class="step-content">
+                Στη σελίδα του Terabox, πατήστε το κουμπί <strong style="color: #e50914;">"Save to Terabox"</strong> ή 
+                <strong style="color: #e50914;">"Αποθήκευση στο Terabox"</strong>.
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">Σύνδεση / Εγγραφή (Δωρεάν)</div>
+            </div>
+            <div class="step-content">
+                Εάν δεν έχετε λογαριασμό, δημιουργήστε έναν <strong>δωρεάν</strong>. Μπορείτε να συνδεθείτε με 
+                Google, Apple ή Email. <strong>Παίρνετε 1TB δωρεάν αποθηκευτικό χώρο!</strong>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <div class="step-title">Εύρεση του αρχείου</div>
+            </div>
+            <div class="step-content">
+                Μετά την αποθήκευση, το αρχείο θα βρίσκεται στο φάκελο <strong>"My Files" (Τα Αρχεία μου)</strong> 
+                ή <strong>"Downloads" (Λήψεις)</strong> του Terabox.
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">5</div>
+                <div class="step-title">Λήψη ή Streaming</div>
+            </div>
+            <div class="step-content">
+                <strong>Για streaming:</strong> Πατήστε πάνω στο αρχείο και θα το δείτε online χωρίς λήψη.<br>
+                <strong>Για λήψη:</strong> Επιλέξτε το αρχείο και πατήστε <strong>"Λήψη" (Download)</strong>.
+                Για μεγάλα αρχεία, κατεβάστε την επίσημη <strong>Terabox εφαρμογή</strong> για σταθερότερη μεταφορά.
+            </div>
+        </div>
+        
+        <!-- Bonus tip -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">💡</div>
+                <div class="step-title">Εναλλακτική μέθοδος</div>
+            </div>
+            <div class="step-content">
+                Αν δεν θέλετε να εγκαταστήσετε εφαρμογή, μπορείτε να κάνετε λήψη μέσω browser πατώντας 
+                <strong>"Download anyway"</strong> - η ταχύτητα θα είναι μικρότερη αλλά λειτουργεί.
+            </div>
+        </div>
+        
+        <!-- Χρήσιμες Συμβουλές (ΔΩΡΕΑΝ) -->
+        <div class="tips">
+            <h3>💡 Χρήσιμες Συμβουλές</h3>
+            <ul>
+                <li>Η εγγραφή στο Terabox είναι εντελώς <strong>δωρεάν</strong> και σας δίνει <strong>1TB</strong> αποθηκευτικό χώρο.</li>
+                <li>Μπορείτε να δείτε τις ταινίες σας <strong>online (streaming)</strong> χωρίς να τις κατεβάσετε ποτέ.</li>
+                <li>Εάν αντιμετωπίζετε πρόβλημα, δοκιμάστε να ανοίξετε τον σύνδεσμο σε <strong>incognito/private παράθυρο</strong>.</li>
+                <li>Ορισμένοι σύνδεσμοι ενδέχεται να έχουν <strong>κωδικό πρόσβασης</strong> - ελέγξτε την περιγραφή της ταινίας.</li>
+                <li>Αν το αρχείο είναι μεγάλο (>2GB), η λήψη μέσω browser μπορεί να αποτύχει - χρησιμοποιήστε την εφαρμογή.</li>
+            </ul>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ΠΡΟΑΙΡΕΤΙΚΟ: ΠΛΗΡΟΦΟΡΙΕΣ ΓΙΑ PREMIUM (στο τέλος) -->
+        <!-- ============================================ -->
+        <div style="margin-top: 30px; text-align: center;">
+            <hr style="border-color: #333; margin-bottom: 20px;">
+            <p style="font-size: 13px; opacity: 0.7;">⭐ <strong>Προαιρετική Αναβάθμιση</strong> - Μάθετε περισσότερα για το Terabox Premium ⭐</p>
+        </div>
+        
+        <div class="premium-box">
+            <h3>
+                <span>🚀</span>
+                Terabox Premium & Premium Plus - Για ακόμα καλύτερη εμπειρία!
+            </h3>
+            <p style="margin-bottom: 10px; font-size: 14px;">
+                Η <strong>δωρεάν έκδοση</strong> σου δίνει 1TB χώρο και πλήρη λειτουργικότητα. 
+                Αν θέλεις <strong>ακόμα μεγαλύτερες ταχύτητες και επιπλέον χώρο</strong>, μπορείς να αναβαθμίσεις:
+            </p>
+            
+            <div class="premium-features">
+                <div class="premium-feature">
+                    <span>⚡</span>
+                    <span><strong>Premium:</strong> Ταχύτητες έως 5x πιο γρήγορες</span>
+                </div>
+                <div class="premium-feature">
+                    <span>⚡⚡</span>
+                    <span><strong>Premium Plus:</strong> Ταχύτητες έως 10x πιο γρήγορες!</span>
+                </div>
+                <div class="premium-feature">
+                    <span>📺</span>
+                    <span><strong>HD / 4K Streaming</strong> χωρίς διακοπές</span>
+                </div>
+                <div class="premium-feature">
+                    <span>🚫</span>
+                    <span><strong>Χωρίς διαφημίσεις</strong></span>
+                </div>
+                <div class="premium-feature">
+                    <span>💾</span>
+                    <span><strong>Premium:</strong> 2TB | <strong>Plus:</strong> 3TB σύνολο</span>
+                </div>
+                <div class="premium-feature">
+                    <span>🔄</span>
+                    <span><strong>Παράλληλες λήψεις:</strong> Premium: 5 | Plus: 10</span>
+                </div>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Δυνατότητα</th>
+                        <th>Δωρεάν</th>
+                        <th>Premium</th>
+                        <th>Premium Plus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Αποθηκευτικός χώρος</td>
+                        <td>1 TB</td>
+                        <td>2 TB</td>
+                        <td>3 TB</td>
+                    </tr>
+                    <tr>
+                        <td>Ταχύτητα λήψης</td>
+                        <td>Περιορισμένη (~1-2 MB/s)</td>
+                        <td>Έως 5x (~10-20 MB/s)</td>
+                        <td>Έως 10x (~30-50+ MB/s)</td>
+                    </tr>
+                    <tr>
+                        <td>Streaming ποιότητας</td>
+                        <td>SD (480p)</td>
+                        <td>HD (1080p)</td>
+                        <td>4K Ultra HD</td>
+                    </tr>
+                    <tr>
+                        <td>Διαφημίσεις</td>
+                        <td>Ναι</td>
+                        <td colspan="2">Χωρίς διαφημίσεις</td>
+                    </tr>
+                    <tr>
+                        <td>Μέγιστο μέγεθος αρχείου</td>
+                        <td>20 GB</td>
+                        <td>50 GB</td>
+                        <td>100 GB</td>
+                    </tr>
+                    <tr>
+                        <td>Παράλληλες λήψεις</td>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>Τιμή ανά μήνα</td>
+                        <td>Δωρεάν</td>
+                        <td><strong style="color:#2ecc71;">3,50€</strong></td>
+                        <td><strong style="color:#ffc107;">9,90€</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Τιμή ανά έτος</td>
+                        <td>Δωρεάν</td>
+                        <td><strong style="color:#2ecc71;">35€</strong></td>
+                        <td><strong style="color:#ffc107;">99€</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p style="margin-top: 15px; font-size: 12px; opacity: 0.7; text-align: center;">
+                💡 Η premium συνδρομή είναι <strong>προαιρετική</strong> και μπορείς να δοκιμάσεις <strong>7ήμερη δωρεάν δοκιμή</strong>!
+            </p>
+        </div>
+        
+        <!-- Συχνές Ερωτήσεις -->
+        <div class="tips" style="border-left-color: #3498db;">
+            <h3>❓ Συχνές Ερωτήσεις</h3>
+            <ul>
+                <li><strong>Είναι δωρεάν το Terabox;</strong> - Ναι! Η βασική έκδοση είναι εντελώς δωρεάν με 1TB χώρο.</li>
+                <li><strong>Τα αρχεία μου θα μείνουν για πάντα;</strong> - Ναι, όσο δεν τα διαγράφεις εσύ, παραμένουν στο λογαριασμό σου.</li>
+                <li><strong>Μπορώ να δω ταινίες online χωρίς λήψη;</strong> - Ναι, το Terabox υποστηρίζει streaming δωρεάν (έως 720p).</li>
+                <li><strong>Τι κερδίζω αν πληρώσω για Premium;</strong> - Μεγαλύτερες ταχύτητες, HD/4K streaming, περισσότερο χώρο και χωρίς διαφημίσεις.</li>
+                <li><strong>Πόσο κάνει το Premium;</strong> - 3,50€/μήνα για Premium, 9,90€/μήνα για Premium Plus.</li>
+                <li><strong>Μπορώ να δοκιμάσω τα Premium δωρεάν;</strong> - Ναι, το Terabox προσφέρει 7ήμερη δωρεάν δοκιμή!</li>
+            </ul>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-secondary" onclick="window.close()">✖ Κλείσιμο</button>
+            <button class="btn btn-outline" onclick="copyLink()">📋 Αντιγραφή συνδέσμου</button>
+        </div>
+        
+        <div class="footer">
+            Το YIOIO δεν φιλοξενεί αρχεία. Οι σύνδεσμοι προέρχονται από το Terabox.<br>
+            Το Terabox προσφέρει δωρεάν 1TB χώρο. Οι premium τιμές είναι ενδεικτικές.
+        </div>
+    </div>
+    
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light');
+            localStorage.setItem('terabox_theme', document.body.classList.contains('light') ? 'light' : 'dark');
+        }
+        
+        function loadTheme() {
+            const saved = localStorage.getItem('terabox_theme');
+            if (saved === 'light') {
+                document.body.classList.add('light');
+            }
+        }
+        
+        function copyLink() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const teraboxLink = urlParams.get('link');
+            if (teraboxLink) {
+                navigator.clipboard.writeText(decodeURIComponent(teraboxLink));
+                alert('✅ Ο σύνδεσμος αντιγράφηκε!');
+            } else {
+                alert('ℹ️ Δεν υπάρχει σύνδεσμος για αντιγραφή');
+            }
+        }
+        
+        loadTheme();
+    </script>
+</body>
+</html>
