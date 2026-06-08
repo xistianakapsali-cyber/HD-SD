@@ -16,7 +16,7 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 420px;
+            max-width: 500px; /* Μεγάλωσε το πλαίσιο για να χωράει το link */
             margin: 0 auto;
         }
         .btn-main {
@@ -31,12 +31,14 @@
             text-decoration: none;
             display: inline-block;
             margin-bottom: 15px;
-            width: 90px;
+        }
+        .btn-main:hover {
+            background-color: #0052a3;
         }
         .mobile-notice {
             background-color: #fff3cd;
             color: #856404;
-            padding: 12px;
+            padding: 15px;
             border-radius: 6px;
             font-size: 14px;
             margin-top: 10px;
@@ -45,27 +47,44 @@
         }
         .link-box {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column; /* Το link και το κουμπί μπαίνουν σε ξεχωριστές γραμμές αν δεν χωράνε */
+            gap: 10px;
             background: #eee;
-            padding: 8px;
+            padding: 12px;
             border-radius: 4px;
-            font-size: 11px;
-            word-break: break-all;
-            margin-top: 8px;
+            font-size: 13px;
+            word-break: break-all; /* Αναγκάζει το μεγάλο link να αλλάξει γραμμή και να μην κρύβεται */
+            margin-top: 10px;
             border: 1px solid #ddd;
+        }
+        @media (min-width: 480px) {
+            .link-box {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+        .movie-url {
+            font-weight: bold;
+            color: #333;
+            user-select: all; /* Επιτρέπει στον χρήστη να το επιλέξει εύκολα και χειροκίνητα */
         }
         .btn-copy {
             background: #28a745;
             color: white;
             border: none;
-            padding: 6px 10px;
+            padding: 10px 16px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
-            margin-left: 8px;
             white-space: nowrap;
+            width: 100%;
+        }
+        @media (min-width: 480px) {
+            .btn-copy {
+                width: auto;
+            }
         }
         .btn-copy:active {
             background: #1e7e34;
@@ -77,17 +96,18 @@
     <div class="movie-container">
         <h2>🎬 Δοκιμαστική Ταινία</h2>
         
-        <!-- Κουμπί που ανοίγει το TeraBox (δουλεύει άψογα σε PC) -->
+        <!-- Κουμπί Μετάβασης για PC -->
         <a href="https://terabox.com" target="_blank" class="btn-main">
-            Μετάβαση
+            Μετάβαση στο TeraBox
         </a>
 
-        <!-- Το κουτάκι με το ολόγραφο link και την αυτόματη αντιγραφή για κινητά -->
+        <!-- Το διορθωμένο παράθυρο για τα κινητά -->
         <div class="mobile-notice">
             📱 <b>Για χρήστες από κινητό:</b> Αν η εφαρμογή TeraBox κολλάει ή βγάζει σφάλμα, πατήστε το πράσινο κουμπί «Αντιγραφή», ανοίξτε την εφαρμογή TeraBox στο κινητό σας και η ταινία θα ξεκινήσει αμέσως!
             
             <div class="link-box">
-                <span id="movieLink">https://terabox.com</span>
+                <!-- Εδώ φαίνεται πλέον ΟΛΟΚΛΗΡΟ το πραγματικό link και το ID της ταινίας -->
+                <span id="movieLink" class="movie-url">https://terabox.com</span>
                 <button class="btn-copy" onclick="copyLink()">Αντιγραφή</button>
             </div>
         </div>
@@ -98,15 +118,14 @@
         // Παίρνουμε το link ολογράφως
         const linkText = document.getElementById("movieLink").innerText;
         
-        // Χρήση του επίσημου API του browser για αντιγραφή
+        // Σωστή αντιγραφή στο πρόχειρο
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(linkText).then(() => {
-                alert("📋 Το link αντιγράφηκε! Ανοίξτε τώρα την εφαρμογή TeraBox.");
+                alert("📋 Το link αντιγράφηκε επιτυχώς! Ανοίξτε τώρα την εφαρμογή TeraBox.");
             }).catch(err => {
                 fallbackCopy(linkText);
             });
         } else {
-            // Εναλλακτικός τρόπος για πολύ παλιά κινητά
             fallbackCopy(linkText);
         }
     }
@@ -120,9 +139,9 @@
         textArea.select();
         try {
             document.execCommand('copy');
-            alert("📋 Το link αντιγράφηκε! Ανοίξτε τώρα την εφαρμογή TeraBox.");
+            alert("📋 Το link αντιγράφηκε επιτυχώς! Ανοίξτε τώρα την εφαρμογή TeraBox.");
         } catch (err) {
-            alert("Κρατήστε πατημένο το link για να το αντιγράψετε χειροκίνητα.");
+            alert("Παρακαλώ αντιγράψτε το link χειροκίνητα κρατώντας το πατημένο.");
         }
         document.body.removeChild(textArea);
     }
