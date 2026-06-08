@@ -34,7 +34,7 @@
     <h2>Δοκιμαστικό Κουμπί Ταινίας</h2>
     <p>Πατήστε το παρακάτω κουμπί για να ελέγξουμε αν ανοίγει σωστά η ταινία μέσα στην εφαρμογή TeraBox.</p>
     
-    <!-- Εδώ είναι το δικό σου πραγματικό link -->
+    <!-- Το πραγματικό σου link -->
     <button class="btn" onclick="openMovie('https://terabox.app')">
         🎬 Αναπαραγωγή Ταινίας
     </button>
@@ -44,15 +44,14 @@
         const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
         
         if (isMobile) {
-            // Απομονώνουμε το ID της ταινίας (το κομμάτι μετά το surl=)
             const urlParts = originalLink.split('surl=');
             if (urlParts.length > 1) {
                 const surlId = urlParts[1]; 
                 
-                // ΝΕΑ ΔΙΟΡΘΩΜΕΝΗ ΕΝΤΟΛΗ: Στέλνει το πλήρες link δομημένο για την εφαρμογή
-                const appScheme = `terabox://www.terabox.app/sharing/link?surl=${surlId}`;
+                // ΔΗΜΟΥΡΓΙΑ ANDROID INTENT (Αναγκάζει την εφαρμογή com.dubox.drive να ανοίξει το σωστό URL)
+                const intentLink = `intent://www.terabox.app/sharing/link?surl=${surlId}#Intent;scheme=https;package=com.dubox.drive;S.browser_fallback_url=${encodeURIComponent(originalLink)};end;`;
                 
-                window.location.href = appScheme;
+                window.location.href = intentLink;
                 return;
             }
         }
@@ -64,4 +63,3 @@
 
 </body>
 </html>
-
