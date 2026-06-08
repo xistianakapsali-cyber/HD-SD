@@ -3,59 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Δοκιμή TeraBox Link</title>
+    <title>Η Σελίδα των Ταινιών μου</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
             background-color: #f4f4f9;
         }
-        .btn {
+        .movie-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .btn-main {
             background-color: #0066cc;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 12px 24px;
+            font-size: 16px;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             text-decoration: none;
             display: inline-block;
+            margin-bottom: 15px;
         }
-        .btn:hover {
-            background-color: #0052a3;
+        .mobile-notice {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-top: 10px;
+            border: 1px solid #ffeeba;
+        }
+        .link-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #eee;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            word-break: break-all;
+            margin-top: 5px;
+        }
+        .btn-copy {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: 5px;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
 
-    <h2>Δοκιμαστικό Κουμπί Ταινίας</h2>
-    <p>Πατήστε το παρακάτω κουμπί για να ελέγξουμε αν ανοίγει σωστά η ταινία.</p>
-    
-    <!-- Το πραγματικό σου link αλλά διορθωμένο σε .com -->
-    <button class="btn" onclick="openMovie('https://terabox.com')">
-        🎬 Αναπαραγωγή Ταινίας
-    </button>
+    <div class="movie-container">
+        <h3>🎬 Όνομα Ταινίας</h3>
+        
+        <!-- Κουμπί για Laptop/PC που παίζει απευθείας -->
+        <a href="https://terabox.com" target="_blank" class="btn-main">
+            Μετάβαση στο TeraBox
+        </a>
+
+        <!-- Το έξυπνο κουτάκι για τα κινητά -->
+        <div class="mobile-notice">
+            📱 <b>Για κινητά:</b> Αν κολλάει το παραπάνω κουμπί, αντιγράψτε το link και ανοίξτε την εφαρμογή TeraBox.
+            
+            <div class="link-box">
+                <span id="movieLink">https://terabox.com</span>
+                <button class="btn-copy" onclick="copyLink()">Αντιγραφή</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-    function openMovie(originalLink) {
-        // Αν ο χρήστης είναι από κινητό, τον στέλνουμε σε μια ειδική διεύθυνση
-        // που αναγκάζει τον browser να συμπεριφερθεί σαν υπολογιστής (Desktop Request)
-        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    function copyLink() {
+        // Παίρνουμε το κείμενο του link
+        const linkText = document.getElementById("movieLink").innerText;
         
-        if (isMobile) {
-            // Αντικαθιστούμε το www με το d. ή το m. για να προσπεράσουμε το app redirect
-            let desktopLink = originalLink.replace("www.terabox.com", "1024terabox.com");
-            
-            // Ανοίγουμε την ταινία σε νέα καρτέλα
-            window.open(desktopLink, '_blank');
-            return;
-        }
-        
-        // Αν είναι από PC, ανοίγει κανονικά
-        window.location.href = originalLink;
+        // Το αντιγράφουμε στο πρόχειρο (clipboard) του κινητού
+        navigator.clipboard.writeText(linkText).then(() => {
+            alert("📋 Το link αντιγράφηκε! Ανοίξτε τώρα την εφαρμογή TeraBox.");
+        }).catch(err => {
+            alert("Αποτυχία αντιγραφής, παρακαλώ αντιγράψτε το χειροκίνητα.");
+        });
     }
     </script>
 
