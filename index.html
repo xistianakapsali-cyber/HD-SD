@@ -32,34 +32,33 @@
 <body>
 
     <h2>Δοκιμαστικό Κουμπί Ταινίας</h2>
-    <p>Πατήστε το παρακάτω κουμπί για να ελέγξουμε αν ανοίγει σωστά η ταινία μέσα στην εφαρμογή TeraBox.</p>
+    <p>Πατήστε το παρακάτω κουμπί για να ελέγξουμε αν ανοίγει σωστά η ταινία.</p>
     
-    <!-- Το πραγματικό σου link -->
-    <button class="btn" onclick="openMovie('https://terabox.app')">
+    <!-- Το πραγματικό σου link αλλά διορθωμένο σε .com -->
+    <button class="btn" onclick="openMovie('https://terabox.com')">
         🎬 Αναπαραγωγή Ταινίας
     </button>
 
     <script>
     function openMovie(originalLink) {
+        // Αν ο χρήστης είναι από κινητό, τον στέλνουμε σε μια ειδική διεύθυνση
+        // που αναγκάζει τον browser να συμπεριφερθεί σαν υπολογιστής (Desktop Request)
         const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
         
         if (isMobile) {
-            const urlParts = originalLink.split('surl=');
-            if (urlParts.length > 1) {
-                const surlId = urlParts[1]; 
-                
-                // ΔΗΜΟΥΡΓΙΑ ANDROID INTENT (Αναγκάζει την εφαρμογή com.dubox.drive να ανοίξει το σωστό URL)
-                const intentLink = `intent://www.terabox.app/sharing/link?surl=${surlId}#Intent;scheme=https;package=com.dubox.drive;S.browser_fallback_url=${encodeURIComponent(originalLink)};end;`;
-                
-                window.location.href = intentLink;
-                return;
-            }
+            // Αντικαθιστούμε το www με το d. ή το m. για να προσπεράσουμε το app redirect
+            let desktopLink = originalLink.replace("www.terabox.com", "1024terabox.com");
+            
+            // Ανοίγουμε την ταινία σε νέα καρτέλα
+            window.open(desktopLink, '_blank');
+            return;
         }
         
-        // Αν είναι από PC, ανοίγει κανονικά στον browser
+        // Αν είναι από PC, ανοίγει κανονικά
         window.location.href = originalLink;
     }
     </script>
 
 </body>
 </html>
+
