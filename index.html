@@ -41,19 +41,17 @@
 
     <script>
     function openMovie(originalLink) {
-        // 1. Έλεγχος αν ο χρήστης είναι από κινητό
         const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
         
         if (isMobile) {
-            // 2. Απομονώνουμε σωστά το ID της ταινίας μετά το 'surl='
+            // Απομονώνουμε το ID της ταινίας (το κομμάτι μετά το surl=)
             const urlParts = originalLink.split('surl=');
             if (urlParts.length > 1) {
-                const surlId = urlParts[1]; // <--- Διορθώθηκε για να παίρνει το ID
+                const surlId = urlParts[1]; 
                 
-                // 3. Νέα εντολή Deep Link που στοχεύει απευθείας στο περιεχόμενο της εφαρμογής
-                const appScheme = `terabox://content?surl=${surlId}`;
+                // ΝΕΑ ΔΙΟΡΘΩΜΕΝΗ ΕΝΤΟΛΗ: Στέλνει το πλήρες link δομημένο για την εφαρμογή
+                const appScheme = `terabox://www.terabox.app/sharing/link?surl=${surlId}`;
                 
-                // 4. Άμεση προώθηση στην εφαρμογή TeraBox
                 window.location.href = appScheme;
                 return;
             }
