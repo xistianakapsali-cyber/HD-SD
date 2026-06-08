@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Η Σελίδα των Ταινιών μου</title>
+    <title>Δοκιμή Αντιγραφής Link</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,7 +16,7 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 400px;
+            max-width: 420px;
             margin: 0 auto;
         }
         .btn-main {
@@ -31,15 +31,17 @@
             text-decoration: none;
             display: inline-block;
             margin-bottom: 15px;
+            width: 90px;
         }
         .mobile-notice {
             background-color: #fff3cd;
             color: #856404;
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 14px;
             margin-top: 10px;
             border: 1px solid #ffeeba;
+            text-align: left;
         }
         .link-box {
             display: flex;
@@ -48,36 +50,41 @@
             background: #eee;
             padding: 8px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 11px;
             word-break: break-all;
-            margin-top: 5px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
         }
         .btn-copy {
             background: #28a745;
             color: white;
             border: none;
-            padding: 4px 8px;
+            padding: 6px 10px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 11px;
-            margin-left: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
             white-space: nowrap;
+        }
+        .btn-copy:active {
+            background: #1e7e34;
         }
     </style>
 </head>
 <body>
 
     <div class="movie-container">
-        <h3>🎬 Όνομα Ταινίας</h3>
+        <h2>🎬 Δοκιμαστική Ταινία</h2>
         
-        <!-- Κουμπί για Laptop/PC που παίζει απευθείας -->
+        <!-- Κουμπί που ανοίγει το TeraBox (δουλεύει άψογα σε PC) -->
         <a href="https://terabox.com" target="_blank" class="btn-main">
-            Μετάβαση στο TeraBox
+            Μετάβαση
         </a>
 
-        <!-- Το έξυπνο κουτάκι για τα κινητά -->
+        <!-- Το κουτάκι με το ολόγραφο link και την αυτόματη αντιγραφή για κινητά -->
         <div class="mobile-notice">
-            📱 <b>Για κινητά:</b> Αν κολλάει το παραπάνω κουμπί, αντιγράψτε το link και ανοίξτε την εφαρμογή TeraBox.
+            📱 <b>Για χρήστες από κινητό:</b> Αν η εφαρμογή TeraBox κολλάει ή βγάζει σφάλμα, πατήστε το πράσινο κουμπί «Αντιγραφή», ανοίξτε την εφαρμογή TeraBox στο κινητό σας και η ταινία θα ξεκινήσει αμέσως!
             
             <div class="link-box">
                 <span id="movieLink">https://terabox.com</span>
@@ -88,18 +95,40 @@
 
     <script>
     function copyLink() {
-        // Παίρνουμε το κείμενο του link
+        // Παίρνουμε το link ολογράφως
         const linkText = document.getElementById("movieLink").innerText;
         
-        // Το αντιγράφουμε στο πρόχειρο (clipboard) του κινητού
-        navigator.clipboard.writeText(linkText).then(() => {
+        // Χρήση του επίσημου API του browser για αντιγραφή
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(linkText).then(() => {
+                alert("📋 Το link αντιγράφηκε! Ανοίξτε τώρα την εφαρμογή TeraBox.");
+            }).catch(err => {
+                fallbackCopy(linkText);
+            });
+        } else {
+            // Εναλλακτικός τρόπος για πολύ παλιά κινητά
+            fallbackCopy(linkText);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed"; 
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
             alert("📋 Το link αντιγράφηκε! Ανοίξτε τώρα την εφαρμογή TeraBox.");
-        }).catch(err => {
-            alert("Αποτυχία αντιγραφής, παρακαλώ αντιγράψτε το χειροκίνητα.");
-        });
+        } catch (err) {
+            alert("Κρατήστε πατημένο το link για να το αντιγράψετε χειροκίνητα.");
+        }
+        document.body.removeChild(textArea);
     }
     </script>
 
 </body>
 </html>
+
 
