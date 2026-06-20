@@ -213,17 +213,30 @@
             flex-direction: column;
             height: fit-content;
         }
-        .portfolio-detail h3 {
-            font-weight: 600;
-            font-size: 18px;
+        .portfolio-detail .owner-header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #eef2f8;
+            padding-bottom: 12px;
+        }
+        .portfolio-detail .owner-name {
+            font-weight: 700;
+            font-size: 22px;
             color: #0b1e3a;
-            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+        .portfolio-detail .owner-period {
+            font-size: 14px;
+            color: #5a6f8c;
+            font-weight: 400;
+            margin-top: 4px;
         }
         .detail-total {
             display: flex;
             align-items: baseline;
             gap: 16px;
-            padding: 14px 0;
+            padding: 10px 0 14px 0;
             border-bottom: 1px solid #eef2f8;
             margin-bottom: 16px;
         }
@@ -325,9 +338,12 @@
             </div>
         </div>
 
-        <!-- δεξιά: αναλυτική λίστα θέσεων + σύνολο -->
+        <!-- δεξιά: αναλυτική λίστα θέσεων + σύνολο με δικαιούχο -->
         <div class="portfolio-detail" id="portfolioDetail">
-            <h3><i class="fas fa-chart-pie" style="margin-right: 10px;"></i>Ανάλυση θέσεων</h3>
+            <div class="owner-header">
+                <div class="owner-name"><i class="fas fa-user-circle" style="margin-right: 10px; color: #0055ff;"></i>Νίκος Παπαδόπουλος</div>
+                <div class="owner-period"><i class="far fa-calendar-alt" style="margin-right: 6px;"></i>15 Απριλίου 2026 – 15 Απριλίου 2027</div>
+            </div>
             <div class="detail-total">
                 <span class="big-value" id="detailTotalValue">2.500,00</span>
                 <span class="big-change" id="detailTotalChange">+0,00%</span>
@@ -350,7 +366,7 @@
             "AVAX","LINK","UNI","ATOM","LTC","ETC","FIL","ICP","NEAR","VET",
             "ALGO","FTM","EGLD","THETA","SAND","MANA","AAVE","EOS","XTZ","GALA",
             "FLOW","KLAY","XMR","HBAR","QNT","ZEC","BTT","HOT","AMP","1INCH",
-            "ENJ","CHZ","CRV","ICP","ZIL","ANKR","BAT","OCEAN","REN","SKALE"
+            "ENJ","CHZ","CRV","ZIL","ANKR","BAT","OCEAN","REN","SKALE"
         ];
         // για να έχουμε 50 μοναδικά, κόβουμε αν υπερβαίνει (αλλά είναι ακριβώς 50)
         const SYMBOLS = CRYPTO_SYMBOLS.slice(0, 50);
