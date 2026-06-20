@@ -1,288 +1,525 @@
 ﻿<!DOCTYPE html>
 <html lang="el">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>⚠️ ΠΡΟΣΟΧΗ - Εκπαιδευτική Σελίδα</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ζωντανό Χαρτοφυλάκιο 50 Κρυπτονομισμάτων</title>
+    <!-- Font Awesome & Google Fonts για επαγγελματική εμφάνιση -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
-        
         body {
-            background: #0d1117;
-            min-height: 100vh;
+            background: #f8fafd;
             display: flex;
             justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
         }
-        
-        .container {
-            max-width: 750px;
+        .main-container {
+            max-width: 1440px;
             width: 100%;
-            background: linear-gradient(145deg, #161b22, #1c2333);
-            border-radius: 28px;
-            padding: 45px 40px;
-            border: 3px solid #f85149;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            animation: fadeIn 0.8s ease;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+        /* header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0,20,50,0.06);
+            margin-bottom: 28px;
         }
-        
-        .header-icon {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .header-icon i {
-            font-size: 64px;
-            color: #f85149;
-            background: #2d1b1b;
-            padding: 20px;
-            border-radius: 50%;
-            border: 3px solid #f85149;
-        }
-        
-        h1 {
-            color: #f85149;
-            font-size: 2rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 6px;
-            letter-spacing: -0.5px;
-        }
-        
-        .subtitle {
-            text-align: center;
-            color: #f0883e;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: #2d1b1b;
-            display: inline-block;
-            padding: 4px 24px;
-            border-radius: 40px;
-            margin: 0 auto 25px auto;
-            border: 1px solid #f85149;
-        }
-        
-        .subtitle-wrap {
-            text-align: center;
-        }
-        
-        .warning-box {
-            background: #1c1f2e;
-            border-radius: 16px;
-            padding: 24px 28px;
-            border-left: 5px solid #f85149;
-            margin-bottom: 20px;
-        }
-        
-        .warning-box .big-text {
-            color: #f85149;
-            font-size: 1.15rem;
-            font-weight: 800;
-            text-align: center;
-            display: block;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .warning-box ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .warning-box ul li {
-            color: #e6edf3;
-            padding: 6px 0;
-            font-size: 0.95rem;
-            border-bottom: 1px solid #2d2f3e;
+        .logo-area {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
-        .warning-box ul li:last-child {
-            border-bottom: none;
+        .logo-area i {
+            font-size: 28px;
+            color: #0055ff;
         }
-        
-        .warning-box ul li i {
+        .logo-area h1 {
+            font-weight: 600;
+            font-size: 22px;
+            letter-spacing: -0.4px;
+            color: #0b1e3a;
+        }
+        .live-badge {
+            background: #eef5ff;
+            color: #0055ff;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 6px 16px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .live-badge i {
+            font-size: 12px;
+            color: #00c853;
+        }
+        .portfolio-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 20px 28px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+            border: 1px solid #eef2f8;
+            margin-bottom: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .portfolio-left {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .portfolio-left h2 {
+            font-weight: 500;
+            font-size: 18px;
+            color: #1b2b44;
+        }
+        .portfolio-left .value {
+            font-weight: 700;
+            font-size: 36px;
+            letter-spacing: -0.5px;
+            color: #0b1e3a;
+        }
+        .portfolio-left .change {
+            font-weight: 600;
+            font-size: 20px;
+            padding: 4px 12px;
+            border-radius: 40px;
+        }
+        .change.positive { background: #e6f9ed; color: #0f7b3a; }
+        .change.negative { background: #ffedf0; color: #c42b3d; }
+        .portfolio-right {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            color: #3c4d6b;
+        }
+        .portfolio-right i {
+            font-size: 20px;
+            color: #0055ff;
+        }
+        .portfolio-right span {
+            font-weight: 500;
+        }
+        /* πίνακας + γραφικά */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr;
+            gap: 24px;
+        }
+        @media (max-width: 1000px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+        .table-wrapper {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.02);
+            border: 1px solid #edf2f9;
+            overflow: hidden;
+            padding: 8px 0;
+        }
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 20px 8px 20px;
+            border-bottom: 1px solid #eef2f8;
+            font-weight: 600;
+            color: #3a4d6b;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+        .table-scroll {
+            max-height: 580px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #d0d9e6 #f0f4fc;
+        }
+        .table-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .table-scroll::-webkit-scrollbar-track {
+            background: #f0f4fc;
+        }
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e3;
+            border-radius: 12px;
+        }
+        .crypto-row {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr 1.2fr 0.8fr;
+            padding: 12px 20px;
+            align-items: center;
+            border-bottom: 1px solid #f2f6fd;
+            font-size: 14px;
+            transition: background 0.1s ease;
+        }
+        .crypto-row:hover {
+            background: #f9fcff;
+        }
+        .crypto-row .name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            color: #0b1e3a;
+        }
+        .crypto-row .name i {
+            font-size: 18px;
+            color: #3a5a8a;
             width: 24px;
             text-align: center;
         }
-        
-        .warning-box ul li .red {
-            color: #f85149;
+        .crypto-row .price {
+            font-weight: 500;
+            color: #1b2b44;
         }
-        
-        .warning-box ul li .green {
-            color: #3fb950;
-        }
-        
-        .fake-box {
-            background: #2d1b1b;
-            border: 2px dashed #f85149;
-            border-radius: 12px;
-            padding: 14px 20px;
-            text-align: center;
-            margin: 15px 0 20px 0;
-        }
-        
-        .fake-box strong {
-            color: #f85149;
-            font-size: 1rem;
-        }
-        
-        .alert-box {
-            background: #2d1b1b;
-            border-left: 4px solid #f0883e;
-            border-radius: 10px;
-            padding: 14px 18px;
-            margin: 15px 0 20px 0;
-        }
-        
-        .alert-box p {
-            color: #e6edf3;
-            font-size: 0.9rem;
+        .crypto-row .change-badge {
             font-weight: 600;
-            margin: 4px 0;
-        }
-        
-        .alert-box p i {
-            color: #f0883e;
-            margin-right: 10px;
-        }
-        
-        .footer-text {
+            padding: 4px 0;
+            border-radius: 30px;
             text-align: center;
-            border-top: 2px solid #2d2f3e;
-            padding-top: 18px;
-            margin-top: 10px;
-            color: #8b949e;
-            font-size: 0.75rem;
         }
-        
-        .footer-text strong {
-            color: #e6edf3;
+        .change-badge.up { color: #0f7b3a; background: #e6f9ed; }
+        .change-badge.down { color: #c42b3d; background: #ffedf0; }
+        .crypto-row .holdings {
+            font-weight: 500;
+            color: #1b2b44;
+            text-align: right;
         }
-        
-        .footer-text .highlight {
-            color: #f85149;
+        /* δεξιά κάρτα χαρτοφυλακίου */
+        .portfolio-detail {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #edf2f9;
+            padding: 20px 22px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+        }
+        .portfolio-detail h3 {
+            font-weight: 600;
+            font-size: 18px;
+            color: #0b1e3a;
+            margin-bottom: 8px;
+        }
+        .detail-total {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid #eef2f8;
+            margin-bottom: 16px;
+        }
+        .detail-total .big-value {
             font-weight: 700;
+            font-size: 36px;
+            color: #0b1e3a;
         }
-        
-        .btn-continue {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #238636, #1a7a3a);
-            color: #ffffff;
-            border: none;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .detail-total .big-change {
+            font-weight: 600;
+            font-size: 20px;
         }
-        
-        .btn-continue:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(35, 134, 54, 0.3);
+        .position-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 4px;
         }
-        
-        @media (max-width: 600px) {
-            .container { padding: 25px 18px; }
-            h1 { font-size: 1.4rem; }
-            .warning-box { padding: 16px 14px; }
-            .warning-box ul li { font-size: 0.85rem; }
+        .position-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f2f6fd;
+            font-size: 13px;
+        }
+        .position-item .sym {
+            font-weight: 500;
+            color: #1b2b44;
+        }
+        .position-item .pos-value {
+            font-weight: 500;
+            color: #0b1e3a;
+        }
+        .position-item .pos-change {
+            font-weight: 500;
+            min-width: 60px;
+            text-align: right;
+        }
+        .pos-change.up { color: #0f7b3a; }
+        .pos-change.down { color: #c42b3d; }
+        .footer-note {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #6f7f99;
+            text-align: center;
+            border-top: 1px solid #edf2f8;
+            padding-top: 14px;
+        }
+        .flash {
+            animation: flashRow 0.15s ease;
+        }
+        @keyframes flashRow {
+            0% { background: #e3edff; }
+            100% { background: transparent; }
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        
-        <!-- ====== HEADER ICON ====== -->
-        <div class="header-icon">
-            <i class="fas fa-exclamation-triangle"></i>
+<div class="main-container">
+    <!-- header -->
+    <div class="header">
+        <div class="logo-area">
+            <i class="fas fa-coins"></i>
+            <h1>50 Crypto · Live</h1>
         </div>
-        
-        <h1>🚨 ΠΡΟΣΟΧΗ!</h1>
-        <div class="subtitle-wrap">
-            <span class="subtitle">ΑΥΤΗ Η ΣΕΛΙΔΑ ΕΙΝΑΙ ΨΕΥΤΙΚΗ</span>
+        <div class="live-badge">
+            <i class="fas fa-circle"></i> Ζωντανά
         </div>
-        
-        <!-- ====== WARNING BOX ====== -->
-        <div class="warning-box">
-            <span class="big-text">⚠️ ΟΛΑ ΕΙΝΑΙ ΕΙΚΟΝΙΚΑ ΚΑΙ ΠΛΑΣΤΑ ⚠️</span>
-            
-            <ul>
-                <li><i class="fas fa-times-circle red"></i> <span class="red">Δεν υπάρχουν πραγματικά χρήματα.</span></li>
-                <li><i class="fas fa-times-circle red"></i> <span class="red">Δεν υπάρχουν πραγματικά κρυπτονομίσματα.</span></li>
-                <li><i class="fas fa-times-circle red"></i> <span class="red">Δεν υπάρχουν πραγματικές επενδύσεις.</span></li>
-                <li><i class="fas fa-times-circle red"></i> <span class="red">Κανένα νούμερο, καμία τιμή, καμία συναλλαγή δεν είναι αληθινή.</span></li>
-            </ul>
-            
-            <div class="fake-box">
-                <strong>🔴 ΟΛΑ ΕΙΝΑΙ ΨΕΥΤΙΚΑ - ΕΙΚΟΝΙΚΟ ΠΕΡΙΒΑΛΛΟΝ ΕΚΠΑΙΔΕΥΣΗΣ</strong>
-            </div>
-            
-            <p style="color:#8b949e; font-size:0.9rem; margin-top:6px;">
-                Αυτή η σελίδα δημιουργήθηκε <strong style="color:#e6edf3;">ΑΠΟΚΛΕΙΣΤΙΚΑ</strong> από μια παρέα φίλων για να μάθουμε:
-            </p>
-            <ul style="margin-top:4px;">
-                <li><i class="fas fa-check-circle green"></i> <span class="green">Πώς φτιάχνονται τέτοια συστήματα</span></li>
-                <li><i class="fas fa-check-circle green"></i> <span class="green">Πώς λειτουργούν οι απάτες με κρυπτονομίσματα</span></li>
-                <li><i class="fas fa-check-circle green"></i> <span class="green">Πώς να τις αναγνωρίζουμε και να τις αποφεύγουμε</span></li>
-            </ul>
-        </div>
-        
-        <!-- ====== ALERT BOX ====== -->
-        <div class="alert-box">
-            <p><i class="fas fa-exclamation-circle"></i> Η σελίδα αυτή <strong>ΟΥΔΕΠΟΤΕ</strong> θα ζητήσει λεφτά, τραπεζικούς λογαριασμούς, προσωπικά δεδομένα ή πληρωμή.</p>
-            <p><i class="fas fa-exclamation-circle"></i> <strong>ΟΠΟΙΟΣ</strong> σας ζητήσει χρήματα μέσω αυτής της σελίδας είναι <strong style="color:#f85149;">ΑΠΑΤΕΩΝΑΣ</strong>.</p>
-        </div>
-        
-        <!-- ====== FINAL WARNING ====== -->
-        <div style="background:#1c1f2e; padding:12px 16px; border-radius:10px; border:1px solid #2d2f3e; text-align:center; margin-bottom:10px;">
-            <p style="color:#e6edf3; font-size:0.9rem;">
-                📢 <strong>Αν κάποιος σας πει ότι αυτό είναι αληθινό, σας κοροϊδεύει.</strong><br>
-                <span style="color:#8b949e;">Είναι ΕΚΠΑΙΔΕΥΤΙΚΟ ΕΡΓΑΛΕΙΟ, ΟΧΙ πραγματική πλατφόρμα.</span>
-            </p>
-        </div>
-        
-        <!-- ====== FOOTER ====== -->
-        <div class="footer-text">
-            <i class="fas fa-user-astronaut"></i> <strong>Φτιαγμένο από παρέα φίλων</strong> · 
-            <i class="fas fa-shield-alt"></i> <span class="highlight">ΕΚΠΑΙΔΕΥΣΗ ΕΝΑΝΤΙΑ ΣΤΙΣ ΑΠΑΤΕΣ</span> · 
-            <i class="far fa-calendar-alt"></i> 2026
-        </div>
-        
-        <!-- ====== ΚΟΥΜΠΙ ΓΙΑ ΠΡΟΣΒΑΣΗ ΣΤΟ ΠΡΑΓΜΑΤΙΚΟ ΠΕΡΙΕΧΟΜΕΝΟ ====== -->
-        <button class="btn-continue" onclick="window.location.href='real.html'">
-            <i class="fas fa-arrow-right"></i> Συνέχεια στο προσομοιωμένο περιβάλλον
-        </button>
     </div>
 
-    <script>
-        console.log('%c🔒 Εκπαιδευτική Σελίδα - Όλα τα δεδομένα είναι εικονικά', 'font-size:16px;color:#f0883e;font-weight:bold;');
-        console.log('%c© 2026 - Φτιαγμένο από παρέα φίλων', 'font-size:12px;color:#8b949e;');
-    </script>
+    <!-- συνοπτική κάρτα χαρτοφυλακίου -->
+    <div class="portfolio-card" id="portfolioSummary">
+        <div class="portfolio-left">
+            <h2><i class="fas fa-wallet" style="margin-right: 10px;"></i>Χαρτοφυλάκιο</h2>
+            <span class="value" id="totalValue">2.500,00</span>
+            <span class="change" id="totalChange">+0,00%</span>
+        </div>
+        <div class="portfolio-right">
+            <i class="fas fa-arrow-up"></i>
+            <span>50 θέσεις</span>
+            <i class="fas fa-chevron-right" style="font-size: 14px;"></i>
+        </div>
+    </div>
 
+    <!-- grid: πίνακας + αναλυτικό χαρτοφυλάκιο -->
+    <div class="grid-2col">
+        <!-- αριστερός πίνακας 50 κρυπτο -->
+        <div class="table-wrapper">
+            <div class="table-header">
+                <span>Όνομα</span>
+                <span>Τιμή (€)</span>
+                <span>24h %</span>
+                <span>Θέση (€)</span>
+            </div>
+            <div class="table-scroll" id="cryptoTable">
+                <!-- οι γραμμές θα γεμίσουν με js -->
+            </div>
+        </div>
+
+        <!-- δεξιά: αναλυτική λίστα θέσεων + σύνολο -->
+        <div class="portfolio-detail" id="portfolioDetail">
+            <h3><i class="fas fa-chart-pie" style="margin-right: 10px;"></i>Ανάλυση θέσεων</h3>
+            <div class="detail-total">
+                <span class="big-value" id="detailTotalValue">2.500,00</span>
+                <span class="big-change" id="detailTotalChange">+0,00%</span>
+            </div>
+            <div class="position-list" id="positionList">
+                <!-- οι θέσεις θα γεμίσουν με js -->
+            </div>
+            <div class="footer-note">
+                <i class="fas fa-sync-alt fa-fw"></i> Ενημέρωση κάθε 2 δευτ. · Προσομοίωση αγοράς
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ----- 50 κορυφαία κρυπτονομίσματα (σύμβολα + ονόματα) -----
+        const CRYPTO_SYMBOLS = [
+            "BTC","ETH","BNB","XRP","ADA","SOL","DOGE","DOT","MATIC","SHIB",
+            "AVAX","LINK","UNI","ATOM","LTC","ETC","FIL","ICP","NEAR","VET",
+            "ALGO","FTM","EGLD","THETA","SAND","MANA","AAVE","EOS","XTZ","GALA",
+            "FLOW","KLAY","XMR","HBAR","QNT","ZEC","BTT","HOT","AMP","1INCH",
+            "ENJ","CHZ","CRV","ICP","ZIL","ANKR","BAT","OCEAN","REN","SKALE"
+        ];
+        // για να έχουμε 50 μοναδικά, κόβουμε αν υπερβαίνει (αλλά είναι ακριβώς 50)
+        const SYMBOLS = CRYPTO_SYMBOLS.slice(0, 50);
+        // δημιουργούμε ονόματα βάσει συμβόλων
+        const FULL_NAMES = {
+            BTC:"Bitcoin", ETH:"Ethereum", BNB:"BNB", XRP:"XRP", ADA:"Cardano",
+            SOL:"Solana", DOGE:"Dogecoin", DOT:"Polkadot", MATIC:"Polygon", SHIB:"Shiba Inu",
+            AVAX:"Avalanche", LINK:"Chainlink", UNI:"Uniswap", ATOM:"Cosmos", LTC:"Litecoin",
+            ETC:"Ethereum Classic", FIL:"Filecoin", ICP:"Internet Computer", NEAR:"NEAR", VET:"VeChain",
+            ALGO:"Algorand", FTM:"Fantom", EGLD:"Elrond", THETA:"Theta", SAND:"The Sandbox",
+            MANA:"Decentraland", AAVE:"Aave", EOS:"EOS", XTZ:"Tezos", GALA:"Gala",
+            FLOW:"Flow", KLAY:"Klaytn", XMR:"Monero", HBAR:"Hedera", QNT:"Quant",
+            ZEC:"Zcash", BTT:"BitTorrent", HOT:"Holo", AMP:"AMP", "1INCH":"1inch",
+            ENJ:"Enjin", CHZ:"Chiliz", CRV:"Curve", ZIL:"Zilliqa", ANKR:"Ankr",
+            BAT:"Basic Attention", OCEAN:"Ocean", REN:"Ren", SKALE:"Skale"
+        };
+        // αρχικές τιμές (€) – κλίμακα ώστε το χαρτοφυλάκιο να είναι ~2500€
+        // θα ορίσουμε τιμές ώστε με 0.1 μονάδες ανά κρυπτό να βγαίνει σύνολο ~2500
+        const BASE_PRICES = [
+            34000, 1800, 320, 0.5, 0.4, 25, 0.08, 5, 0.8, 0.00001,
+            15, 7, 5, 8, 70, 20, 4, 7, 3, 0.02,
+            0.2, 0.3, 45, 1.2, 0.4, 0.5, 70, 1.1, 0.8, 0.03,
+            1.2, 0.2, 160, 0.07, 110, 30, 0.0005, 0.002, 0.005, 0.3,
+            0.2, 0.1, 0.5, 0.03, 0.04, 0.2, 0.3, 0.4, 0.08, 0.05
+        ];
+
+        // κάθε κρυπτό έχει ποσότητα ώστε να αθροίζει ~2500€ (50*50€ μέση θέση)
+        // θα υπολογίσουμε ποσότητα = 50€ / αρχική τιμή (περίπου)
+        // αλλά για να έχουμε ακριβώς 2500 προσαρμόζουμε
+        let initialHoldings = [];
+        let initialTotal = 0;
+        const TARGET = 2500;
+        // αρχικά υπολογίζουμε ποσότητες με βάση το 50€ αναλογία
+        for (let i=0; i<SYMBOLS.length; i++) {
+            let price = BASE_PRICES[i % BASE_PRICES.length];
+            // ποσότητα ώστε η θέση να είναι ~50€
+            let qty = 50 / price;
+            initialHoldings.push(qty);
+            initialTotal += qty * price;
+        }
+        // κλιμάκωση ώστε το σύνολο να είναι ακριβώς 2500
+        let scale = TARGET / initialTotal;
+        for (let i=0; i<initialHoldings.length; i++) {
+            initialHoldings[i] = initialHoldings[i] * scale;
+        }
+
+        // state: τρέχουσες τιμές, ποσότητες (σταθερές), κέρδη/ζημίες
+        let currentPrices = [];
+        let currentHoldings = [...initialHoldings];
+        let totalPortfolio = 0;
+        let previousTotal = 0;
+
+        // αρχικοποίηση τιμών με μικρή τυχαιότητα
+        function initPrices() {
+            for (let i=0; i<SYMBOLS.length; i++) {
+                let base = BASE_PRICES[i % BASE_PRICES.length];
+                let variation = 1 + (Math.random() * 0.08 - 0.04); // -4% +4%
+                currentPrices.push(base * variation);
+            }
+        }
+        initPrices();
+
+        // ενημέρωση συνολικής αξίας
+        function calcTotal() {
+            let sum = 0;
+            for (let i=0; i<SYMBOLS.length; i++) {
+                sum += currentHoldings[i] * currentPrices[i];
+            }
+            return sum;
+        }
+        totalPortfolio = calcTotal();
+        previousTotal = totalPortfolio;
+
+        // render όλων των στοιχείων (πίνακας + λίστα θέσεων + totals)
+        function renderAll() {
+            // υπολογισμός total
+            let total = calcTotal();
+            let changePercent = previousTotal !== 0 ? ((total - previousTotal) / previousTotal * 100) : 0;
+            // ενημέρωση συνολικών στοιχείων (πάνω κάρτα + δεξιά)
+            document.getElementById('totalValue').innerText = total.toFixed(2);
+            document.getElementById('detailTotalValue').innerText = total.toFixed(2);
+            let changeEl = document.getElementById('totalChange');
+            let detailChangeEl = document.getElementById('detailTotalChange');
+            let sign = changePercent >= 0 ? '+' : '';
+            changeEl.innerText = `${sign}${changePercent.toFixed(2)}%`;
+            detailChangeEl.innerText = `${sign}${changePercent.toFixed(2)}%`;
+            changeEl.className = `change ${changePercent >= 0 ? 'positive' : 'negative'}`;
+            detailChangeEl.className = `big-change ${changePercent >= 0 ? 'positive' : 'negative'}`;
+
+            // ---- πίνακας 50 κρυπτο ----
+            let tableHtml = '';
+            for (let i=0; i<SYMBOLS.length; i++) {
+                let sym = SYMBOLS[i];
+                let name = FULL_NAMES[sym] || sym;
+                let price = currentPrices[i];
+                // βάση σύγκρισης για αλλαγή: χρησιμοποιούμε την προηγούμενη τιμή (αποθηκεύουμε σε πίνακα)
+                // για απλότητα υπολογίζουμε στιγμιαία αλλαγή από την προηγούμενη ανανέωση
+                // θα κρατήσουμε έναν πίνακα με προηγούμενες τιμές για κάθε κρυπτό
+                let oldPrice = oldPrices[i] || price;
+                let change = oldPrice !== 0 ? ((price - oldPrice) / oldPrice * 100) : 0;
+                let changeClass = change >= 0 ? 'up' : 'down';
+                let changeSign = change >= 0 ? '+' : '';
+                let formattedChange = `${changeSign}${change.toFixed(2)}%`;
+                let holdingValue = currentHoldings[i] * price;
+                tableHtml += `
+                    <div class="crypto-row" data-sym="${sym}">
+                        <div class="name"><i class="fas fa-circle" style="font-size: 10px; color: ${change>=0?'#0f7b3a':'#c42b3d'};"></i> ${name} (${sym})</div>
+                        <div class="price">${price.toFixed(4)}</div>
+                        <div class="change-badge ${changeClass}">${formattedChange}</div>
+                        <div class="holdings">${holdingValue.toFixed(2)}</div>
+                    </div>
+                `;
+            }
+            document.getElementById('cryptoTable').innerHTML = tableHtml;
+
+            // ---- λίστα θέσεων (δεξιά) ----
+            let posHtml = '';
+            for (let i=0; i<SYMBOLS.length; i++) {
+                let sym = SYMBOLS[i];
+                let name = FULL_NAMES[sym] || sym;
+                let price = currentPrices[i];
+                let holdingValue = currentHoldings[i] * price;
+                let oldPrice = oldPrices[i] || price;
+                let change = oldPrice !== 0 ? ((price - oldPrice) / oldPrice * 100) : 0;
+                let changeClass = change >= 0 ? 'up' : 'down';
+                let changeSign = change >= 0 ? '+' : '';
+                posHtml += `
+                    <div class="position-item">
+                        <span class="sym">${sym}</span>
+                        <span class="pos-value">${holdingValue.toFixed(2)}€</span>
+                        <span class="pos-change ${changeClass}">${changeSign}${change.toFixed(2)}%</span>
+                    </div>
+                `;
+            }
+            document.getElementById('positionList').innerHTML = posHtml;
+
+            // αποθήκευση τρέχοντος total ως προηγούμενο για την επόμενη μεταβολή %
+            previousTotal = total;
+            // αποθήκευση τρεχουσών τιμών ως παλιές
+            oldPrices = [...currentPrices];
+        }
+
+        // πίνακας παλιών τιμών (για υπολογισμό %)
+        let oldPrices = [...currentPrices];
+
+        // συνάρτηση ανανέωσης τιμών (τυχαίες διακυμάνσεις)
+        function updatePrices() {
+            for (let i=0; i<currentPrices.length; i++) {
+                // μεταβολή μεταξύ -1.2% και +1.2% (γρήγορη)
+                let change = (Math.random() * 2.4 - 1.2) / 100; 
+                let newPrice = currentPrices[i] * (1 + change);
+                // όριο να μην πέφτει κάτω από 0.0001
+                if (newPrice < 0.0001) newPrice = 0.0001;
+                currentPrices[i] = newPrice;
+            }
+            // ανανέωση οθόνης
+            renderAll();
+        }
+
+        // αρχικό render
+        renderAll();
+
+        // ζωντανή μετάδοση κάθε 2 δευτερόλεπτα
+        setInterval(updatePrices, 2000);
+
+        // μικρό flash effect (προαιρετικό) – δεν υλοποιείται γιατί αλλάζει το innerHTML
+        // αλλά μπορούμε να προσθέσουμε κλάση με animation σε κάθε γραμμή
+        // (για λόγους απόδοσης το παραλείπουμε, αλλά η ενημέρωση είναι ορατή)
+    })();
+</script>
 </body>
 </html>
