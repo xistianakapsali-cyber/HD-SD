@@ -14,12 +14,29 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            /* Αποτροπή επιλογής κειμένου */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
+        /* Αποτροπή επιλογής κειμένου για όλα τα στοιχεία */
         body {
             background: #f8fafd;
             display: flex;
             justify-content: center;
             padding: 20px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* Εξαίρεση για τα input/textarea αν υπήρχαν */
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
         .main-container {
             max-width: 1440px;
@@ -357,6 +374,16 @@
             font-weight: 400;
             margin-top: 2px;
         }
+        .owner-period .cycle-badge {
+            background: #eef5ff;
+            color: #0055ff;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+            display: inline-block;
+        }
         .guarantor {
             font-size: 14px;
             color: #2b3f5e;
@@ -471,6 +498,15 @@
         .btn-id i {
             color: #0055ff;
         }
+        /* Προστασία - να μην φαίνεται η επιλογή */
+        ::selection {
+            background: transparent;
+            color: inherit;
+        }
+        ::-moz-selection {
+            background: transparent;
+            color: inherit;
+        }
     </style>
 </head>
 <body>
@@ -522,11 +558,14 @@
         <div class="portfolio-detail" id="portfolioDetail">
             <div class="owner-header">
                 <div class="owner-name">
-                    <i class="fas fa-user-circle" style="color: #0055ff;"></i> Νίκος Παπαδόπουλος
+                    <i class="fas fa-user-circle" style="color: #0055ff;"></i> Θοδωρής Μαλάκος
                     <small>Δικαιούχος</small>
                 </div>
-                <div class="guarantor"><i class="fas fa-users"></i> Νίκος Παπαζήσης — Συνεργάτης Project</div>
-                <div class="owner-period"><i class="far fa-calendar-alt" style="margin-right: 6px;"></i>15 Απριλίου 2026 – 15 Απριλίου 2027</div>
+                <div class="guarantor"><i class="fas fa-users"></i> Μιχάλης Βέργος — Συνεργάτης Project</div>
+                <div class="owner-period">
+                    <i class="far fa-calendar-alt" style="margin-right: 6px;"></i>15 Απριλίου 2026 – 15 Απριλίου 2027
+                    <span class="cycle-badge"><i class="fas fa-rotate"></i> Αυτοματοποιημένος Κύκλος Εργασίας</span>
+                </div>
             </div>
             <div class="detail-total">
                 <span class="big-value" id="detailTotalValue">2.500,00</span>
@@ -562,7 +601,7 @@
 <div class="modal-overlay" id="idModal">
     <div class="modal-box">
         <h3><i class="fas fa-id-card" style="color: #0055ff; margin-right: 10px;"></i>Αναγνωριστικό Χαρτοφυλακείου</h3>
-        <div class="hash-label">Μοναδικό ID Προσομοίωσης</div>
+        <div class="hash-label">Κλειδί Κρυπτογράφησης (Hash)</div>
         <div class="hash-code" id="portfolioHash">a7f9e3d1c2b8a4f6e5d9c0b1a2f3e4d5c6b7a8f9e0d1c2b3a4f5e6d7c8b9a0f1</div>
         <p style="font-size: 13px; color: #5a6f8c; margin: 12px 0 4px 0; text-align: center; border-top: 1px solid #edf2f8; padding-top: 14px;">
             <i class="fas fa-info-circle"></i> 
@@ -572,6 +611,144 @@
 </div>
 
 <script>
+    // ============================================
+    // ΠΡΟΣΤΑΣΙΑ - Anti-Copy / Anti-Inspect
+    // ============================================
+    
+    // 1. Απενεργοποίηση δεξιού κλικ
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 2. Απενεργοποίηση πλήκτρων F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+C, Ctrl+V, Ctrl+X
+    document.addEventListener('keydown', function(e) {
+        // F12
+        if (e.key === 'F12') {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+Shift+I (Inspect)
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+Shift+J (Console)
+        if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+U (View Source)
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+C (Copy)
+        if (e.ctrlKey && (e.key === 'C' || e.key === 'c')) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+V (Paste)
+        if (e.ctrlKey && (e.key === 'V' || e.key === 'v')) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+X (Cut)
+        if (e.ctrlKey && (e.key === 'X' || e.key === 'x')) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+S (Save)
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+P (Print)
+        if (e.ctrlKey && (e.key === 'P' || e.key === 'p')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 3. Αποτροπή επιλογής κειμένου μέσω JavaScript (επιπλέον προστασία)
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 4. Αποτροπή copy, cut, paste events
+    document.addEventListener('copy', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    document.addEventListener('cut', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    document.addEventListener('paste', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 5. Αποτροπή drag (συρόμενων αντικειμένων)
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 6. Αποτροπή αποστολής του DOM σε console (καμουφλάζ)
+    // Αντικατάσταση της console.log με κενή συνάρτηση
+    if (window.console) {
+        console.log = function() {};
+        console.info = function() {};
+        console.warn = function() {};
+        console.error = function() {};
+        console.debug = function() {};
+        console.table = function() {};
+        console.trace = function() {};
+    }
+
+    // 7. Αποτροπή πρόσβασης στο devtools μέσω της μεθόδου ανίχνευσης
+    // (δεν είναι 100% αλάνθαστο, αλλά δυσκολεύει)
+    setInterval(function() {
+        // Έλεγχος για άνοιγμα devtools (μέσω μεγέθους παραθύρου)
+        const threshold = 160;
+        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        if (widthThreshold || heightThreshold) {
+            // Αν κάποιος ανοίξει devtools, ανακατευθύνουμε ή κάνουμε κάτι
+            // Εδώ απλά το κρύβουμε χωρίς να τον ειδοποιήσουμε
+            document.body.style.opacity = '0.01';
+            setTimeout(function() {
+                document.body.style.opacity = '1';
+            }, 500);
+        }
+    }, 1000);
+
+    // 8. Απόκρυψη του κειμένου σε περίπτωση που κάποιος προσπαθήσει να κάνει inspect
+    // Προσθήκη ενός "καμουφλάζ" στο DOM
+    const style = document.createElement('style');
+    style.innerHTML = `
+        /* Καμουφλάζ για προστασία - οι κλάσεις αυτές μπερδεύουν τα tools */
+        ._hidden_protect { display: none !important; }
+        ._fake_element { opacity: 0; position: absolute; pointer-events: none; }
+    `;
+    document.head.appendChild(style);
+
+    // 9. Προστασία από την αντιγραφή του HTML μέσω της μεθόδου "view-source:"
+    // Αυτό γίνεται με το να μπλοκάρουμε το Ctrl+U (ήδη μπλοκαρίστηκε παραπάνω)
+
+    // 10. Τέλος, κρύβουμε το console από την προβολή
+    Object.defineProperty(window, 'console', {
+        value: console,
+        writable: false,
+        configurable: false
+    });
+
+    // ============================================
+    // ΚΑΝΟΝΙΚΟΣ ΚΩΔΙΚΑΣ ΤΗΣ ΕΦΑΡΜΟΓΗΣ
+    // ============================================
+    
     (function() {
         // ---- 50 κρυπτο ----
         const CRYPTO_SYMBOLS = [
@@ -809,7 +986,6 @@
         }
 
         document.getElementById('btnPortfolioId').addEventListener('click', function() {
-            // Generate new random hash each time
             portfolioHashEl.innerText = generateHash();
             idModal.classList.add('active');
         });
