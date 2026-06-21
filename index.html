@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ζωντανό Χαρτοφυλάκιο 50 Κρυπτονομισμάτων</title>
-    <!-- Font Awesome & Google Fonts για επαγγελματική εμφάνιση -->
+    <!-- Font Awesome, Google Fonts, Chart.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -24,7 +25,6 @@
             max-width: 1440px;
             width: 100%;
         }
-        /* header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -34,6 +34,8 @@
             border-radius: 24px;
             box-shadow: 0 8px 24px rgba(0,20,50,0.06);
             margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
         .logo-area {
             display: flex;
@@ -50,6 +52,12 @@
             letter-spacing: -0.4px;
             color: #0b1e3a;
         }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
         .live-badge {
             background: #eef5ff;
             color: #0055ff;
@@ -60,10 +68,101 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            animation: pulseGlow 1.8s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.7; box-shadow: 0 0 0 0 rgba(0, 85, 255, 0.2); }
+            50% { opacity: 1; box-shadow: 0 0 12px 4px rgba(0, 85, 255, 0.15); }
+            100% { opacity: 0.7; box-shadow: 0 0 0 0 rgba(0, 85, 255, 0.2); }
         }
         .live-badge i {
             font-size: 12px;
             color: #00c853;
+        }
+        .btn-hist {
+            background: #f0f4fe;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 13px;
+            color: #0b1e3a;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-hist:hover {
+            background: #dce6fd;
+        }
+        .btn-hist i {
+            color: #0055ff;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 32px 40px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            animation: modalFade 0.25s ease;
+        }
+        @keyframes modalFade {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .modal-box h3 {
+            font-weight: 600;
+            font-size: 20px;
+            color: #0b1e3a;
+            margin-bottom: 16px;
+        }
+        .modal-box .hist-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #edf2f8;
+            font-size: 15px;
+        }
+        .modal-box .hist-item:last-child {
+            border-bottom: none;
+        }
+        .modal-box .hist-date {
+            font-weight: 500;
+            color: #1b2b44;
+        }
+        .modal-box .hist-price {
+            font-weight: 600;
+            color: #0b1e3a;
+        }
+        .modal-close {
+            margin-top: 20px;
+            background: #f0f4fe;
+            border: none;
+            padding: 10px 0;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #0b1e3a;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .modal-close:hover {
+            background: #dce6fd;
         }
         .portfolio-card {
             background: #ffffff;
@@ -115,7 +214,6 @@
         .portfolio-right span {
             font-weight: 500;
         }
-        /* πίνακας + γραφικά */
         .grid-2col {
             display: grid;
             grid-template-columns: 2fr 1.2fr;
@@ -145,7 +243,7 @@
             letter-spacing: 0.3px;
         }
         .table-scroll {
-            max-height: 580px;
+            max-height: 460px;
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: #d0d9e6 #f0f4fc;
@@ -163,7 +261,7 @@
         .crypto-row {
             display: grid;
             grid-template-columns: 2.5fr 1fr 1.2fr 0.8fr;
-            padding: 12px 20px;
+            padding: 10px 20px;
             align-items: center;
             border-bottom: 1px solid #f2f6fd;
             font-size: 14px;
@@ -202,7 +300,6 @@
             color: #1b2b44;
             text-align: right;
         }
-        /* δεξιά κάρτα χαρτοφυλακίου */
         .portfolio-detail {
             background: #ffffff;
             border-radius: 24px;
@@ -213,24 +310,43 @@
             flex-direction: column;
             height: fit-content;
         }
-        .portfolio-detail .owner-header {
+        .owner-header {
             display: flex;
             flex-direction: column;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             border-bottom: 1px solid #eef2f8;
-            padding-bottom: 12px;
+            padding-bottom: 10px;
         }
-        .portfolio-detail .owner-name {
+        .owner-name {
             font-weight: 700;
-            font-size: 22px;
+            font-size: 20px;
             color: #0b1e3a;
             letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .portfolio-detail .owner-period {
-            font-size: 14px;
+        .owner-name small {
+            font-weight: 400;
+            font-size: 13px;
+            color: #5a6f8c;
+            margin-left: 6px;
+        }
+        .owner-period {
+            font-size: 13px;
             color: #5a6f8c;
             font-weight: 400;
-            margin-top: 4px;
+            margin-top: 2px;
+        }
+        .guarantor {
+            font-size: 14px;
+            color: #2b3f5e;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .guarantor i {
+            color: #0055ff;
+            margin-right: 6px;
         }
         .detail-total {
             display: flex;
@@ -238,7 +354,7 @@
             gap: 16px;
             padding: 10px 0 14px 0;
             border-bottom: 1px solid #eef2f8;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         .detail-total .big-value {
             font-weight: 700;
@@ -252,15 +368,15 @@
         .position-list {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            max-height: 400px;
+            gap: 4px;
+            max-height: 280px;
             overflow-y: auto;
             padding-right: 4px;
         }
         .position-item {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
+            padding: 6px 0;
             border-bottom: 1px solid #f2f6fd;
             font-size: 13px;
         }
@@ -279,37 +395,41 @@
         }
         .pos-change.up { color: #0f7b3a; }
         .pos-change.down { color: #c42b3d; }
-        .footer-note {
+        .chart-wrapper {
             margin-top: 16px;
+            border-top: 1px solid #eef2f8;
+            padding-top: 16px;
+        }
+        .chart-wrapper canvas {
+            width: 100% !important;
+            height: 60px !important;
+        }
+        .footer-note {
+            margin-top: 12px;
             font-size: 12px;
             color: #6f7f99;
             text-align: center;
             border-top: 1px solid #edf2f8;
-            padding-top: 14px;
-        }
-        .flash {
-            animation: flashRow 0.15s ease;
-        }
-        @keyframes flashRow {
-            0% { background: #e3edff; }
-            100% { background: transparent; }
+            padding-top: 12px;
         }
     </style>
 </head>
 <body>
 <div class="main-container">
-    <!-- header -->
     <div class="header">
         <div class="logo-area">
             <i class="fas fa-coins"></i>
             <h1>50 Crypto · Live</h1>
         </div>
-        <div class="live-badge">
-            <i class="fas fa-circle"></i> Ζωντανά
+        <div class="header-actions">
+            <button class="btn-hist" id="btnLow"><i class="fas fa-arrow-down"></i> Ιστορικό Χαμηλό</button>
+            <button class="btn-hist" id="btnHigh"><i class="fas fa-arrow-up"></i> Ιστορικό Ανώτερο</button>
+            <div class="live-badge">
+                <i class="fas fa-circle"></i> Ζωντανά
+            </div>
         </div>
     </div>
 
-    <!-- συνοπτική κάρτα χαρτοφυλακίου -->
     <div class="portfolio-card" id="portfolioSummary">
         <div class="portfolio-left">
             <h2><i class="fas fa-wallet" style="margin-right: 10px;"></i>Χαρτοφυλάκιο</h2>
@@ -323,9 +443,7 @@
         </div>
     </div>
 
-    <!-- grid: πίνακας + αναλυτικό χαρτοφυλάκιο -->
     <div class="grid-2col">
-        <!-- αριστερός πίνακας 50 κρυπτο -->
         <div class="table-wrapper">
             <div class="table-header">
                 <span>Όνομα</span>
@@ -333,23 +451,25 @@
                 <span>24h %</span>
                 <span>Θέση (€)</span>
             </div>
-            <div class="table-scroll" id="cryptoTable">
-                <!-- οι γραμμές θα γεμίσουν με js -->
-            </div>
+            <div class="table-scroll" id="cryptoTable"></div>
         </div>
 
-        <!-- δεξιά: αναλυτική λίστα θέσεων + σύνολο με δικαιούχο -->
         <div class="portfolio-detail" id="portfolioDetail">
             <div class="owner-header">
-                <div class="owner-name"><i class="fas fa-user-circle" style="margin-right: 10px; color: #0055ff;"></i>Νίκος Παπαδόπουλος</div>
+                <div class="owner-name">
+                    <i class="fas fa-user-circle" style="color: #0055ff;"></i> Νίκος Παπαδόπουλος
+                    <small>Δικαιούχος</small>
+                </div>
+                <div class="guarantor"><i class="fas fa-shield-alt"></i> Νίκος Παπαζήσης — Εγγυητής Χαρτοφυλακείου</div>
                 <div class="owner-period"><i class="far fa-calendar-alt" style="margin-right: 6px;"></i>15 Απριλίου 2026 – 15 Απριλίου 2027</div>
             </div>
             <div class="detail-total">
                 <span class="big-value" id="detailTotalValue">2.500,00</span>
                 <span class="big-change" id="detailTotalChange">+0,00%</span>
             </div>
-            <div class="position-list" id="positionList">
-                <!-- οι θέσεις θα γεμίσουν με js -->
+            <div class="position-list" id="positionList"></div>
+            <div class="chart-wrapper">
+                <canvas id="liveChart"></canvas>
             </div>
             <div class="footer-note">
                 <i class="fas fa-sync-alt fa-fw"></i> Ενημέρωση κάθε 2 δευτ. · Προσομοίωση αγοράς
@@ -358,9 +478,18 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal-overlay" id="historyModal">
+    <div class="modal-box">
+        <h3 id="modalTitle">Ιστορικό</h3>
+        <div id="modalBody"></div>
+        <button class="modal-close" id="modalClose">Κλείσιμο</button>
+    </div>
+</div>
+
 <script>
     (function() {
-        // ----- 50 κορυφαία κρυπτονομίσματα (σύμβολα + ονόματα) -----
+        // ---- 50 κρυπτο ----
         const CRYPTO_SYMBOLS = [
             "BTC","ETH","BNB","XRP","ADA","SOL","DOGE","DOT","MATIC","SHIB",
             "AVAX","LINK","UNI","ATOM","LTC","ETC","FIL","ICP","NEAR","VET",
@@ -368,9 +497,7 @@
             "FLOW","KLAY","XMR","HBAR","QNT","ZEC","BTT","HOT","AMP","1INCH",
             "ENJ","CHZ","CRV","ZIL","ANKR","BAT","OCEAN","REN","SKALE"
         ];
-        // για να έχουμε 50 μοναδικά, κόβουμε αν υπερβαίνει (αλλά είναι ακριβώς 50)
         const SYMBOLS = CRYPTO_SYMBOLS.slice(0, 50);
-        // δημιουργούμε ονόματα βάσει συμβόλων
         const FULL_NAMES = {
             BTC:"Bitcoin", ETH:"Ethereum", BNB:"BNB", XRP:"XRP", ADA:"Cardano",
             SOL:"Solana", DOGE:"Dogecoin", DOT:"Polkadot", MATIC:"Polygon", SHIB:"Shiba Inu",
@@ -383,8 +510,6 @@
             ENJ:"Enjin", CHZ:"Chiliz", CRV:"Curve", ZIL:"Zilliqa", ANKR:"Ankr",
             BAT:"Basic Attention", OCEAN:"Ocean", REN:"Ren", SKALE:"Skale"
         };
-        // αρχικές τιμές (€) – κλίμακα ώστε το χαρτοφυλάκιο να είναι ~2500€
-        // θα ορίσουμε τιμές ώστε με 0.1 μονάδες ανά κρυπτό να βγαίνει σύνολο ~2500
         const BASE_PRICES = [
             34000, 1800, 320, 0.5, 0.4, 25, 0.08, 5, 0.8, 0.00001,
             15, 7, 5, 8, 70, 20, 4, 7, 3, 0.02,
@@ -393,43 +518,33 @@
             0.2, 0.1, 0.5, 0.03, 0.04, 0.2, 0.3, 0.4, 0.08, 0.05
         ];
 
-        // κάθε κρυπτό έχει ποσότητα ώστε να αθροίζει ~2500€ (50*50€ μέση θέση)
-        // θα υπολογίσουμε ποσότητα = 50€ / αρχική τιμή (περίπου)
-        // αλλά για να έχουμε ακριβώς 2500 προσαρμόζουμε
         let initialHoldings = [];
         let initialTotal = 0;
         const TARGET = 2500;
-        // αρχικά υπολογίζουμε ποσότητες με βάση το 50€ αναλογία
         for (let i=0; i<SYMBOLS.length; i++) {
             let price = BASE_PRICES[i % BASE_PRICES.length];
-            // ποσότητα ώστε η θέση να είναι ~50€
             let qty = 50 / price;
             initialHoldings.push(qty);
             initialTotal += qty * price;
         }
-        // κλιμάκωση ώστε το σύνολο να είναι ακριβώς 2500
         let scale = TARGET / initialTotal;
         for (let i=0; i<initialHoldings.length; i++) {
             initialHoldings[i] = initialHoldings[i] * scale;
         }
 
-        // state: τρέχουσες τιμές, ποσότητες (σταθερές), κέρδη/ζημίες
         let currentPrices = [];
         let currentHoldings = [...initialHoldings];
-        let totalPortfolio = 0;
         let previousTotal = 0;
 
-        // αρχικοποίηση τιμών με μικρή τυχαιότητα
         function initPrices() {
             for (let i=0; i<SYMBOLS.length; i++) {
                 let base = BASE_PRICES[i % BASE_PRICES.length];
-                let variation = 1 + (Math.random() * 0.08 - 0.04); // -4% +4%
+                let variation = 1 + (Math.random() * 0.08 - 0.04);
                 currentPrices.push(base * variation);
             }
         }
         initPrices();
 
-        // ενημέρωση συνολικής αξίας
         function calcTotal() {
             let sum = 0;
             for (let i=0; i<SYMBOLS.length; i++) {
@@ -437,15 +552,51 @@
             }
             return sum;
         }
-        totalPortfolio = calcTotal();
+        let totalPortfolio = calcTotal();
         previousTotal = totalPortfolio;
 
-        // render όλων των στοιχείων (πίνακας + λίστα θέσεων + totals)
+        let oldPrices = [...currentPrices];
+
+        // ---- Chart.js ----
+        const ctx = document.getElementById('liveChart').getContext('2d');
+        const chartData = {
+            labels: [],
+            datasets: [{
+                label: 'Σύνολο (€)',
+                data: [],
+                borderColor: '#0055ff',
+                backgroundColor: 'rgba(0, 85, 255, 0.08)',
+                borderWidth: 2.5,
+                pointRadius: 0,
+                tension: 0.2,
+                fill: true,
+            }]
+        };
+        const liveChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { display: false },
+                    y: { display: false, beginAtZero: false }
+                },
+                animation: { duration: 200 }
+            }
+        });
+        for (let i=0; i<20; i++) {
+            let val = 2500 + (Math.random() * 60 - 30);
+            chartData.labels.push(i);
+            chartData.datasets[0].data.push(val);
+        }
+        liveChart.update();
+
+        // ---- render ----
         function renderAll() {
-            // υπολογισμός total
             let total = calcTotal();
             let changePercent = previousTotal !== 0 ? ((total - previousTotal) / previousTotal * 100) : 0;
-            // ενημέρωση συνολικών στοιχείων (πάνω κάρτα + δεξιά)
             document.getElementById('totalValue').innerText = total.toFixed(2);
             document.getElementById('detailTotalValue').innerText = total.toFixed(2);
             let changeEl = document.getElementById('totalChange');
@@ -456,15 +607,11 @@
             changeEl.className = `change ${changePercent >= 0 ? 'positive' : 'negative'}`;
             detailChangeEl.className = `big-change ${changePercent >= 0 ? 'positive' : 'negative'}`;
 
-            // ---- πίνακας 50 κρυπτο ----
             let tableHtml = '';
             for (let i=0; i<SYMBOLS.length; i++) {
                 let sym = SYMBOLS[i];
                 let name = FULL_NAMES[sym] || sym;
                 let price = currentPrices[i];
-                // βάση σύγκρισης για αλλαγή: χρησιμοποιούμε την προηγούμενη τιμή (αποθηκεύουμε σε πίνακα)
-                // για απλότητα υπολογίζουμε στιγμιαία αλλαγή από την προηγούμενη ανανέωση
-                // θα κρατήσουμε έναν πίνακα με προηγούμενες τιμές για κάθε κρυπτό
                 let oldPrice = oldPrices[i] || price;
                 let change = oldPrice !== 0 ? ((price - oldPrice) / oldPrice * 100) : 0;
                 let changeClass = change >= 0 ? 'up' : 'down';
@@ -482,11 +629,9 @@
             }
             document.getElementById('cryptoTable').innerHTML = tableHtml;
 
-            // ---- λίστα θέσεων (δεξιά) ----
             let posHtml = '';
             for (let i=0; i<SYMBOLS.length; i++) {
                 let sym = SYMBOLS[i];
-                let name = FULL_NAMES[sym] || sym;
                 let price = currentPrices[i];
                 let holdingValue = currentHoldings[i] * price;
                 let oldPrice = oldPrices[i] || price;
@@ -503,38 +648,68 @@
             }
             document.getElementById('positionList').innerHTML = posHtml;
 
-            // αποθήκευση τρέχοντος total ως προηγούμενο για την επόμενη μεταβολή %
+            let currentVal = total;
+            chartData.datasets[0].data.push(currentVal);
+            if (chartData.datasets[0].data.length > 40) {
+                chartData.datasets[0].data.shift();
+                chartData.labels.shift();
+            }
+            chartData.labels.push(chartData.labels.length);
+            liveChart.update();
+
             previousTotal = total;
-            // αποθήκευση τρεχουσών τιμών ως παλιές
             oldPrices = [...currentPrices];
         }
 
-        // πίνακας παλιών τιμών (για υπολογισμό %)
-        let oldPrices = [...currentPrices];
-
-        // συνάρτηση ανανέωσης τιμών (τυχαίες διακυμάνσεις)
         function updatePrices() {
             for (let i=0; i<currentPrices.length; i++) {
-                // μεταβολή μεταξύ -1.2% και +1.2% (γρήγορη)
-                let change = (Math.random() * 2.4 - 1.2) / 100; 
+                let change = (Math.random() * 2.4 - 1.2) / 100;
                 let newPrice = currentPrices[i] * (1 + change);
-                // όριο να μην πέφτει κάτω από 0.0001
                 if (newPrice < 0.0001) newPrice = 0.0001;
                 currentPrices[i] = newPrice;
             }
-            // ανανέωση οθόνης
             renderAll();
         }
 
-        // αρχικό render
         renderAll();
-
-        // ζωντανή μετάδοση κάθε 2 δευτερόλεπτα
         setInterval(updatePrices, 2000);
 
-        // μικρό flash effect (προαιρετικό) – δεν υλοποιείται γιατί αλλάζει το innerHTML
-        // αλλά μπορούμε να προσθέσουμε κλάση με animation σε κάθε γραμμή
-        // (για λόγους απόδοσης το παραλείπουμε, αλλά η ενημέρωση είναι ορατή)
+        // ---- Modal ----
+        const modal = document.getElementById('historyModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalClose = document.getElementById('modalClose');
+
+        function openModal(title, items) {
+            modalTitle.innerText = title;
+            let html = '';
+            items.forEach(item => {
+                html += `<div class="hist-item"><span class="hist-date">${item.date}</span><span class="hist-price">${item.price}</span></div>`;
+            });
+            modalBody.innerHTML = html;
+            modal.classList.add('active');
+        }
+
+        // Ιστορικό Χαμηλό: μόνο το χαμηλό (2.510)
+        document.getElementById('btnLow').addEventListener('click', function() {
+            openModal('Ιστορικό Χαμηλό', [
+                { date: '25/04/2026', price: '⬇ 2.510 €' }
+            ]);
+        });
+
+        // Ιστορικό Ανώτερο: μόνο το ανώτερο (3.820)
+        document.getElementById('btnHigh').addEventListener('click', function() {
+            openModal('Ιστορικό Ανώτερο', [
+                { date: '20/05/2026', price: '⬆ 3.820 €' }
+            ]);
+        });
+
+        modalClose.addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) modal.classList.remove('active');
+        });
     })();
 </script>
 </body>
