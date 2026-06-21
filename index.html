@@ -412,10 +412,32 @@
             border-top: 1px solid #edf2f8;
             padding-top: 12px;
         }
+        /* Main footer with warning */
+        .main-footer {
+            margin-top: 40px;
+            padding: 24px 28px;
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #edf2f8;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.02);
+            text-align: center;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #2b3f5e;
+            letter-spacing: 0.2px;
+        }
+        .main-footer i {
+            color: #b0c4de;
+            margin-right: 8px;
+        }
+        .main-footer strong {
+            color: #0b1e3a;
+        }
     </style>
 </head>
 <body>
 <div class="main-container">
+    <!-- header -->
     <div class="header">
         <div class="logo-area">
             <i class="fas fa-coins"></i>
@@ -430,6 +452,7 @@
         </div>
     </div>
 
+    <!-- συνοπτική κάρτα -->
     <div class="portfolio-card" id="portfolioSummary">
         <div class="portfolio-left">
             <h2><i class="fas fa-wallet" style="margin-right: 10px;"></i>Χαρτοφυλάκιο</h2>
@@ -443,7 +466,9 @@
         </div>
     </div>
 
+    <!-- grid -->
     <div class="grid-2col">
+        <!-- πίνακας -->
         <div class="table-wrapper">
             <div class="table-header">
                 <span>Όνομα</span>
@@ -454,13 +479,14 @@
             <div class="table-scroll" id="cryptoTable"></div>
         </div>
 
+        <!-- δεξιά κάρτα -->
         <div class="portfolio-detail" id="portfolioDetail">
             <div class="owner-header">
                 <div class="owner-name">
                     <i class="fas fa-user-circle" style="color: #0055ff;"></i> Νίκος Παπαδόπουλος
                     <small>Δικαιούχος</small>
                 </div>
-                <div class="guarantor"><i class="fas fa-shield-alt"></i> Νίκος Παπαζήσης — Εγγυητής Χαρτοφυλακείου</div>
+                <div class="guarantor"><i class="fas fa-users"></i> Νίκος Παπαζήσης — Συνεργάτης Project</div>
                 <div class="owner-period"><i class="far fa-calendar-alt" style="margin-right: 6px;"></i>15 Απριλίου 2026 – 15 Απριλίου 2027</div>
             </div>
             <div class="detail-total">
@@ -475,6 +501,13 @@
                 <i class="fas fa-sync-alt fa-fw"></i> Ενημέρωση κάθε 2 δευτ. · Προσομοίωση αγοράς
             </div>
         </div>
+    </div>
+
+    <!-- μεγάλο footer με προειδοποίηση -->
+    <div class="main-footer">
+        <i class="fas fa-exclamation-triangle" style="color: #f0b400;"></i>
+        <strong>Προειδοποίηση:</strong> Η παρούσα ιστοσελίδα αποτελεί αποκλειστικά εκπαιδευτική εργασία παρατηρησεις προσομοίωσης. 
+        Δεν δέχεται καταθέσεις και όλα τα ονόματα και τα ποσά είναι για παρατηρηση.
     </div>
 </div>
 
@@ -690,14 +723,12 @@
             modal.classList.add('active');
         }
 
-        // Ιστορικό Χαμηλό: μόνο το χαμηλό (2.510)
         document.getElementById('btnLow').addEventListener('click', function() {
             openModal('Ιστορικό Χαμηλό', [
                 { date: '25/04/2026', price: '⬇ 2.510 €' }
             ]);
         });
 
-        // Ιστορικό Ανώτερο: μόνο το ανώτερο (3.820)
         document.getElementById('btnHigh').addEventListener('click', function() {
             openModal('Ιστορικό Ανώτερο', [
                 { date: '20/05/2026', price: '⬆ 3.820 €' }
